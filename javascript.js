@@ -1,0 +1,3 @@
+const myGameboard = { 
+    gameboard: []
+};
