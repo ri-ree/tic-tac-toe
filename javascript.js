@@ -11,3 +11,9 @@ const myGameboard = {
             };
     }
 };
+
+const theGame {
+};
+
+const thePlayers {
+};
