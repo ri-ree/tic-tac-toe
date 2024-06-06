@@ -1,15 +1,19 @@
 const myGameboard = { 
     createGameboard: function () {
         const gameboard = [];
-        const columns = 6;
         const rows = 6;
-            for (i = 0; i < columns; i++) {
+        const columns = 6;
+            for (i = 0; i < rows; i++) {
                 gameboard[i] = [];
-                for (j = 0; j < rows; j++) {
+                for (j = 0; j < columns; j++) {
                     gameboard[i].push(createCell());
                 };
             };
         const getTheBoard = () => gameboard;
+
+        const makeAMove = (row, column, player) => {
+            board[row][column].yourMove(player);
+        };
     }
 };
 
