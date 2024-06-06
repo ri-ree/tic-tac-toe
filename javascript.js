@@ -12,7 +12,12 @@ const myGameboard = {
         const getTheBoard = () => gameboard;
 
         const makeAMove = (row, column, player) => {
-            board[row][column].yourMove(player);
+            gameboard[row][column].yourMove(player);
+        };
+
+        const printTheBoard = () => {
+            const theCells = gameboard.map((row) => row.map((cell) => cell.getValue()));
+            console.log(theCells);
         };
     }
 };
