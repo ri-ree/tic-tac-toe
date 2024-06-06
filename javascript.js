@@ -1,5 +1,5 @@
 const myGameboard = { 
-    createGameboard: function () {
+    createGameboard: function() {
         const gameboard = [];
         const rows = 6;
         const columns = 6;
@@ -19,7 +19,21 @@ const myGameboard = {
             const theCells = gameboard.map((row) => row.map((cell) => cell.getValue()));
             console.log(theCells);
         };
+
+        return { getTheBoard, makeAMove, printTheBoard };
+    },
+
+    createCell: function() {
+        let playerMove;
+        const makeAMove = (player) => {
+            playerMove = player;
+        };
+
+        const getValue = () => playerMove;
+
+        return { makeAMove, getValue };
     }
+
 };
 
 const theGame = {
