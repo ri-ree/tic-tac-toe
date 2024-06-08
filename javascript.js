@@ -36,8 +36,17 @@ const myGameboard = {
 
 };
 
+const thePlayers = {
+    createPlayer: function(name, playerNumber) {
+        return { name, playerNumber };
+    }
+};
+
+console.log(thePlayers.name);
+
 const theGame = {
 };
 
-const thePlayers = {
-};
+const { gameboard, cell } = myGameboard;
+console.log(gameboard);
+console.log(cell);
