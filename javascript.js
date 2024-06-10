@@ -1,30 +1,32 @@
-const myGameboard = { 
+/*const myGameboard = { 
     createGameboard: function() {
         const gameboard = [];
         const rows = 6;
         const columns = 6;
-            for (i = 0; i < rows; i++) {
+            for (let i = 0; i < rows; i++) {
                 gameboard[i] = [];
-                for (j = 0; j < columns; j++) {
+                for (let j = 0; j < columns; j++) {
                     gameboard[i].push(myGameboard.createCell());
                 };
             };
         const getTheBoard = () => gameboard;
 
-        const makeAMove = (row, column, player) => {
-            gameboard[row][column].yourMove(player);
+        const chooseYourMove = (row, column, player) => {
+            gameboard[row][column].makeAMove(player);
         };
 
         const printTheBoard = () => {
-            const theCells = gameboard.map((row) => row.map((cell) => cell.getValue()));
+            const createCells = myGameboard.createCell();
+            const getTheValue = myGameboard.createCell().getValue();
+            const theCells = gameboard.map((row) => row.map((cell) => cell.createCells.getTheValue));
             console.log(theCells);
         };
 
-        return { getTheBoard, makeAMove, printTheBoard };
+        return { getTheBoard, chooseYourMove, printTheBoard };
     },
 
     createCell: function() {
-        let playerMove;
+        let playerMove = 0;
         const makeAMove = (player) => {
             playerMove = player;
         };
@@ -36,9 +38,7 @@ const myGameboard = {
 
 };
 
-const { gameboard, cell } = myGameboard;
-console.log(gameboard);
-console.log(cell);
+const { gameboard, cell } = myGameboard.createGameboard();
 
 const thePlayers = {
     createPlayer: function(name) {
@@ -53,7 +53,7 @@ const { playerName } = thePlayers;
 
 const theGame = {
     controlGameFlow: function(...playerName) {
-        const theBoard = gameboard;
+        const theBoard = myGameboard.createGameboard();
         const gamePlayers = [];
         gamePlayers.push(thePlayers);
 
@@ -66,8 +66,45 @@ const theGame = {
         const getCurrentPlayer = () => currentPlayer;
 
         const printRound = () => {
-            theBoard.gameboard.printTheBoard();
+            theBoard.printTheBoard();
             console.log(`${getCurrentPlayer().name}'s turn.`);
         };
+
+        const playNewRound = (row, column) => {
+            theBoard.myGameboard.createGameboard().chooseYourMove(row, column, getCurrentPlayer().playerNumber);
+
+            changeCurrentPlayer();
+            printRound();
+        };
+
+        printRound();
+
+        return { playNewRound, getCurrentPlayer };
     }
 };
+
+theGame.controlGameFlow();
+
+thePlayers.createPlayer("John");
+thePlayers.createPlayer("Amanda");
+console.log(thePlayers);
+
+const game = myGameboard.createGameboard();
+game.chooseYourMove(1, 1, "hi");*/
+
+function createGameboard() {
+    const gameboard = [];
+    const rows = 3;
+    const columns = 3;
+
+    for (let i = 0; i < rows; i++) {
+        gameboard[i] = [];
+        for (let j = 0; j < columns; j++) {
+            gameboard[i][j] = j;
+        };
+    };
+
+    console.log(gameboard);
+}
+
+createGameboard();
