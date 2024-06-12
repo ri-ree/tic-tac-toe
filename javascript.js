@@ -92,19 +92,51 @@ console.log(thePlayers);
 const game = myGameboard.createGameboard();
 game.chooseYourMove(1, 1, "hi");*/
 
+const gameboard = [];
+
 function createGameboard() {
-    const gameboard = [];
     const rows = 3;
     const columns = 3;
 
     for (let i = 0; i < rows; i++) {
         gameboard[i] = [];
         for (let j = 0; j < columns; j++) {
-            gameboard[i][j] = j;
+            gameboard[i][j] = "";
         };
     };
 
-    console.log(gameboard);
-}
+    return gameboard;
+};
 
 createGameboard();
+
+console.table(gameboard);
+
+function choosePlayer(firstPlayer, secondPlayer) {
+    firstPlayer = 1;
+    secondPlayer = 2;
+    let currentPlayer;
+
+    if (firstPlayer < secondPlayer) {
+        currentPlayer = firstPlayer;
+        console.log(`${firstPlayer}'s turn.`);
+        firstPlayer++;
+    } else {
+        currentPlayer = secondPlayer;
+        console.log(`${secondPlayer}'s turn.`);
+        secondPlayer++;
+    };
+
+    return currentPlayer;
+
+};
+
+
+function choosePlayerMove(row, column, move) {
+    gameboard[row][column] = move;
+    console.table(gameboard);
+};
+
+choosePlayerMove(1, 2, "X");
+
+choosePlayerMove(0, 1, "O");
