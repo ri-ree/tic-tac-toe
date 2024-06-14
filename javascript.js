@@ -138,6 +138,12 @@ let currentPlayer;
             console.log(`${currentPlayer} wins!`);
             i = 1;
             j = 2;
+        } else if (gameboard[0][0] !== "" && gameboard[0][1] !== "" && gameboard[0][2] !== "" &&
+            gameboard[1][0]!== "" && gameboard[1][1] !== "" && gameboard[1][2] !== "" &&
+            gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
+            console.log("A tie!");
+            i = 1;
+            j = 2;
         };
 
         if (i < j) {
@@ -149,10 +155,6 @@ let currentPlayer;
             console.log(`${secondPlayer}'s turn.`);
             j++;
         };
-        
-        console.log(i);
-        console.log(j);
-        console.log(currentPlayer);
 
         return currentPlayer;
     };
