@@ -121,6 +121,14 @@ let i = 1;
 let j = 2;
 let currentPlayer;
 
+function resetGame() {
+    for(let i = 0; i < gameboard.length; i++) {
+        for(let j = 0; j < gameboard[i].length; j++) {
+            gameboard[i][j] = "";
+        };
+    };
+};
+
 
     function choosePlayer() {
 
@@ -136,12 +144,17 @@ let currentPlayer;
             gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
             gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][2] === gameboard[2][0] && gameboard[2][0] !== "") {
             console.log(`${currentPlayer} wins!`);
+            resetGame();
+            console.table(gameboard);
             i = 1;
             j = 2;
+
         } else if (gameboard[0][0] !== "" && gameboard[0][1] !== "" && gameboard[0][2] !== "" &&
-            gameboard[1][0]!== "" && gameboard[1][1] !== "" && gameboard[1][2] !== "" &&
-            gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
+                   gameboard[1][0] !== "" && gameboard[1][1] !== "" && gameboard[1][2] !== "" &&
+                   gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
             console.log("A tie!");
+            resetGame();
+            console.table(gameboard);
             i = 1;
             j = 2;
         };
@@ -169,5 +182,6 @@ function choosePlayerMove(row, column, move) {
     console.table(gameboard);
     choosePlayer();
 };
+
 
 /* controlGameFlow(); */
