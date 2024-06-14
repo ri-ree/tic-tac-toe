@@ -112,31 +112,60 @@ createGameboard();
 
 console.table(gameboard);
 
-function choosePlayer(firstPlayer, secondPlayer) {
-    firstPlayer = 1;
-    secondPlayer = 2;
-    let currentPlayer;
+/* function controlGameFlow() { */
 
-    if (firstPlayer < secondPlayer) {
-        currentPlayer = firstPlayer;
-        console.log(`${firstPlayer}'s turn.`);
-        firstPlayer++;
-    } else {
-        currentPlayer = secondPlayer;
-        console.log(`${secondPlayer}'s turn.`);
-        secondPlayer++;
+let firstPlayer = 'First player';
+let secondPlayer = 'Second player';
+
+let i = 1;
+let j = 2;
+let currentPlayer;
+
+
+    function choosePlayer() {
+
+        /*When objects, will use player.number or something of the sort*/
+
+
+        if (gameboard[0][0] !== "" && gameboard[0][0] === gameboard[0][1] && gameboard[0][1] !== "" && gameboard[0][0] === gameboard[0][2] && gameboard[0][2] !== "" ||
+            gameboard[1][0] !== "" && gameboard[1][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[1][0] === gameboard[1][2] && gameboard[1][2] !== "" ||
+            gameboard[2][0] !== "" && gameboard[2][0] === gameboard[2][1] && gameboard[2][1] !== "" && gameboard[2][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
+            gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][0] && gameboard[1][0] !== "" && gameboard[0][0] === gameboard[2][0] && gameboard[2][0] !== "" ||
+            gameboard[0][1] !== "" && gameboard[0][1] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][1] === gameboard[2][1] && gameboard[2][1] !== "" ||
+            gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][2] && gameboard[1][2] !== "" && gameboard[0][2] === gameboard[2][2] && gameboard[2][2] !== "" ||
+            gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
+            gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][2] === gameboard[2][0] && gameboard[2][0] !== "") {
+            console.log(`${currentPlayer} wins!`);
+            i = 1;
+            j = 2;
+        };
+
+        if (i < j) {
+            currentPlayer = firstPlayer;
+            console.log(`${firstPlayer}'s turn.`);
+            i++;
+        } else if (i >= j) {
+            currentPlayer = secondPlayer;
+            console.log(`${secondPlayer}'s turn.`);
+            j++;
+        };
+        
+        console.log(i);
+        console.log(j);
+        console.log(currentPlayer);
+
+        return currentPlayer;
     };
 
-    return currentPlayer;
+    choosePlayer();
 
-};
+/* }; */
 
 
 function choosePlayerMove(row, column, move) {
     gameboard[row][column] = move;
     console.table(gameboard);
+    choosePlayer();
 };
 
-choosePlayerMove(1, 2, "X");
-
-choosePlayerMove(0, 1, "O");
+/* controlGameFlow(); */
