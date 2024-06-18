@@ -113,6 +113,7 @@ const myGameboard = {
     console.table(gameboard);
 
     return { getTheBoard };
+
     }
 }
 
@@ -122,16 +123,8 @@ console.log(gameboard);
 
 /* function controlGameFlow() { */
 
-let firstPlayer = 'First player';
-let secondPlayer = 'Second player';
-
-function resetGame() {
-    for(let i = 0; i < gameboard.length; i++) {
-        for(let j = 0; j < gameboard[i].length; j++) {
-            gameboard[i][j] = "";
-        };
-    };
-};
+let firstPlayer;
+let secondPlayer;
 
 
 const gameController = {
@@ -142,6 +135,14 @@ const gameController = {
     let i = 1;
     let j = 2;
     let currentPlayer;
+
+    function resetGame() {
+        for(let i = 0; i < gameboard.length; i++) {
+            for(let j = 0; j < gameboard[i].length; j++) {
+                gameboard[i][j] = "";
+            };
+        };
+    };
 
     return function() {
 
@@ -194,8 +195,24 @@ const gameController = {
     }
 }
 
+
 let choosePlayerTurn = gameController.choosePlayer();
-choosePlayerTurn();
+
+
+const thePlayers = {
+    createPlayer: function(name) {
+
+        if (firstPlayer === undefined) {
+            firstPlayer = name;
+        } else {
+            secondPlayer = name;
+            choosePlayerTurn();
+        }
+        
+        return { name };
+    }
+};
+
 
 const chooseYourMove = (row, column, move) => {
     gameboard[row][column] = move;
