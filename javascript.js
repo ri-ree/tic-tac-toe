@@ -92,9 +92,12 @@ console.log(thePlayers);
 const game = myGameboard.createGameboard();
 game.chooseYourMove(1, 1, "hi");*/
 
-const gameboard = [];
 
-function createGameboard() {
+const myGameboard = {
+    createGameboard: function() {
+
+    const gameboard = [];
+
     const rows = 3;
     const columns = 3;
 
@@ -105,21 +108,22 @@ function createGameboard() {
         };
     };
 
-    return gameboard;
-};
+    const getTheBoard = () => gameboard;
 
-createGameboard();
+    console.table(gameboard);
 
-console.table(gameboard);
+    return { getTheBoard };
+    }
+}
+
+
+const gameboard = myGameboard.createGameboard().getTheBoard();
+console.log(gameboard);
 
 /* function controlGameFlow() { */
 
 let firstPlayer = 'First player';
 let secondPlayer = 'Second player';
-
-let i = 1;
-let j = 2;
-let currentPlayer;
 
 function resetGame() {
     for(let i = 0; i < gameboard.length; i++) {
@@ -130,9 +134,16 @@ function resetGame() {
 };
 
 
-    function choosePlayer() {
+const gameController = {
+    choosePlayer: function() {
 
         /*When objects, will use player.number or something of the sort*/
+
+    let i = 1;
+    let j = 2;
+    let currentPlayer;
+
+    return function() {
 
 
         if (gameboard[0][0] !== "" && gameboard[0][0] === gameboard[0][1] && gameboard[0][1] !== "" && gameboard[0][0] === gameboard[0][2] && gameboard[0][2] !== "" ||
@@ -149,9 +160,9 @@ function resetGame() {
             i = 1;
             j = 2;
 
-        } else if (gameboard[0][0] !== "" && gameboard[0][1] !== "" && gameboard[0][2] !== "" &&
-                   gameboard[1][0] !== "" && gameboard[1][1] !== "" && gameboard[1][2] !== "" &&
-                   gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
+        } else if (gameboard[0][0] !== "" && gameboard[0][1] !== "" && gameboard[0][2] !== ""
+                && gameboard[1][0] !== "" && gameboard[1][1] !== "" && gameboard[1][2] !== ""
+                && gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
             console.log("A tie!");
             resetGame();
             console.table(gameboard);
@@ -159,29 +170,42 @@ function resetGame() {
             j = 2;
         };
 
+
         if (i < j) {
+            i++;
             currentPlayer = firstPlayer;
             console.log(`${firstPlayer}'s turn.`);
-            i++;
-        } else if (i >= j) {
+            console.log(i);
+            console.log(j);
+            console.log(currentPlayer);
+        } else if (i === j) {
+            j++;
             currentPlayer = secondPlayer;
             console.log(`${secondPlayer}'s turn.`);
-            j++;
+            console.log(i);
+            console.log(j);
+            console.log(currentPlayer);
         };
 
-        return currentPlayer;
-    };
+        return currentPlayer
 
-    choosePlayer();
+        };
+
+    }
+}
+
+let choosePlayerTurn = gameController.choosePlayer();
+choosePlayerTurn();
+
+const chooseYourMove = (row, column, move) => {
+    gameboard[row][column] = move;
+    console.table(gameboard);
+    choosePlayerTurn();
+};
+
 
 /* }; */
 
-
-function choosePlayerMove(row, column, move) {
-    gameboard[row][column] = move;
-    console.table(gameboard);
-    choosePlayer();
-};
 
 
 /* controlGameFlow(); */
