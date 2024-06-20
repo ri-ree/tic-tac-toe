@@ -120,13 +120,9 @@ const myGameboard = {
 
 const gameboard = myGameboard.createGameboard().getTheBoard();
 
-/* function controlGameFlow() { */
-
 
 const gameController = {
     choosePlayer: function() {
-
-        /*When objects, will use player.number or something of the sort*/
 
     let i = 1;
     let j = 2;
@@ -198,39 +194,31 @@ let choosePlayerTurn = gameController.choosePlayer();
 const thePlayers = {
     createPlayer: function() {
 
-        let firstPlayer;
-        let secondPlayer;
+            let firstPlayer;
+            let secondPlayer;
 
-        return function(name) {
+            return function(name) {
 
-        if (firstPlayer === undefined) {
-            firstPlayer = name;
-            console.log(firstPlayer);
-            console.log(secondPlayer);
-        } else {
-            secondPlayer = name;
-            console.log(firstPlayer);
-            console.log(secondPlayer);
-            choosePlayerTurn(firstPlayer, secondPlayer);
-        }
+            if (firstPlayer === undefined && secondPlayer === undefined) {
+                firstPlayer = name;
+                console.log(firstPlayer);
+                console.log(secondPlayer);
+            } else if (firstPlayer !== undefined && secondPlayer === undefined) {
+                secondPlayer = name;
+                console.log(firstPlayer);
+                console.log(secondPlayer);
+                choosePlayerTurn(firstPlayer, secondPlayer);
+            };
+
+            const chooseYourMove = (row, column, move) => {
+                gameboard[row][column] = move;
+                console.table(gameboard);
+                choosePlayerTurn(firstPlayer, secondPlayer);
+            };
         
-        return { name };
-    }
+            return { chooseYourMove };
+        }
     }
 };
 
 let createTurns = thePlayers.createPlayer();
-
-
-const chooseYourMove = (row, column, move) => {
-    gameboard[row][column] = move;
-    console.table(gameboard);
-    choosePlayerTurn();
-};
-
-
-/* }; */
-
-
-
-/* controlGameFlow(); */
