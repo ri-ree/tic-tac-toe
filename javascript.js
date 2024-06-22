@@ -93,7 +93,7 @@ const gameController = {
 }
 
 
-let choosePlayerTurn = gameController.choosePlayer();
+const choosePlayerTurn = gameController.choosePlayer();
 
 
 const thePlayers = {
@@ -126,7 +126,45 @@ const thePlayers = {
     }
 };
 
-let createTurns = thePlayers.createPlayer();
+const createTurns = thePlayers.createPlayer();
 
-const displayLogic {
+const displayLogic = {
+    createBoard: function () {
+        const container = document.querySelector('#container');
+        let firstMove = 1;
+        let secondMove = 2;
+        let playerMove;
+
+        return function () {
+            
+        for (let i = 0; i < gameboard.length; i++) {
+            for (let j = 0; j < gameboard[i].length; j++) {
+
+        let board = document.createElement('div');
+        board.style.border = "1px solid black";
+        board.addEventListener("click", () => {
+
+            if (board.textContent === '') {
+                if (firstMove < secondMove) {
+                    playerMove = 'X';
+                    firstMove++;
+                } else if (firstMove === secondMove) {
+                    playerMove = 'O';
+                    secondMove++;
+                };
+                
+            createTurns().chooseYourMove(i, j, playerMove);
+            board.textContent = playerMove;
+            };
+        });
+        container.appendChild(board);
+            }
+
+        }
+    }
+
+    }
 };
+
+const getDisplay = displayLogic.createBoard();
+getDisplay();
