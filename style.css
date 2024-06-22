@@ -3,9 +3,30 @@
     padding: 0;
 }
 
-#container {
+.main-container {
     display: grid;
     height: 100vh;
+    grid-template-rows: 80px auto;
+}
+
+.title {
+    display: grid;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-rows: 50px 60px auto 150px;
+}
+
+.grid-container > div:nth-child(1) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#container {
+    display: grid;
+    justify-self: center;
+    align-self: center;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
 }
