@@ -131,11 +131,32 @@ const createTurns = thePlayers.createPlayer();
 const displayLogic = {
     createBoard: function () {
         const container = document.querySelector('#container');
+        const playerTurn = document.querySelector('#player-turn');
+        const buttonOne = document.querySelector('#btn-one');
+        const buttonTwo = document.querySelector('#btn-two');
         let firstMove = 1;
         let secondMove = 2;
         let playerMove;
+        let playerOne;
+        let playerTwo;
 
         return function () {
+
+            buttonOne.addEventListener('click', () => {
+                playerOne = document.getElementById('player-one').value;
+                createTurns(playerOne);
+                if (playerOne !== undefined && playerTwo !== undefined) {
+                    playerTurn.textContent = "foo1";
+                }
+            });
+    
+            buttonTwo.addEventListener('click', () => {
+                playerTwo = document.getElementById('player-two').value;
+                createTurns(playerTwo);
+                if (playerOne !== undefined && playerTwo !== undefined) {
+                    playerTurn.textContent = "foo1";
+                }
+            });
             
         for (let i = 0; i < gameboard.length; i++) {
             for (let j = 0; j < gameboard[i].length; j++) {
@@ -148,19 +169,21 @@ const displayLogic = {
                 if (firstMove < secondMove) {
                     playerMove = 'X';
                     firstMove++;
+                    playerTurn.textContent = "foo2";
                 } else if (firstMove === secondMove) {
                     playerMove = 'O';
                     secondMove++;
+                    playerTurn.textContent = "foo1";
                 };
-                
+
             createTurns().chooseYourMove(i, j, playerMove);
             board.textContent = playerMove;
             };
         });
         container.appendChild(board);
-            }
+            };
 
-        }
+        };
     }
 
     }
