@@ -29,63 +29,62 @@ const gameboard = myGameboard.createGameboard().getTheBoard();
 const gameController = {
     choosePlayer: function() {
 
-    let i = 1;
-    let j = 2;
-    let currentPlayer;
+        let i = 1;
+        let j = 2;
+        let currentPlayer;
 
-    function resetGame() {
-        for(let i = 0; i < gameboard.length; i++) {
-            for(let j = 0; j < gameboard[i].length; j++) {
-                gameboard[i][j] = "";
+        function resetGame() {
+            for(let i = 0; i < gameboard.length; i++) {
+                for(let j = 0; j < gameboard[i].length; j++) {
+                    gameboard[i][j] = "";
+                };
             };
         };
-    };
 
-    return function(firstPlayer, secondPlayer) {
+        return function(firstPlayer, secondPlayer) {
+
+            if (gameboard[0][0] !== "" && gameboard[0][0] === gameboard[0][1] && gameboard[0][1] !== "" && gameboard[0][0] === gameboard[0][2] && gameboard[0][2] !== "" ||
+                gameboard[1][0] !== "" && gameboard[1][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[1][0] === gameboard[1][2] && gameboard[1][2] !== "" ||
+                gameboard[2][0] !== "" && gameboard[2][0] === gameboard[2][1] && gameboard[2][1] !== "" && gameboard[2][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
+                gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][0] && gameboard[1][0] !== "" && gameboard[0][0] === gameboard[2][0] && gameboard[2][0] !== "" ||
+                gameboard[0][1] !== "" && gameboard[0][1] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][1] === gameboard[2][1] && gameboard[2][1] !== "" ||
+                gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][2] && gameboard[1][2] !== "" && gameboard[0][2] === gameboard[2][2] && gameboard[2][2] !== "" ||
+                gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
+                gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][2] === gameboard[2][0] && gameboard[2][0] !== "") {
+                console.log(`${currentPlayer} wins!`);
+                resetGame();
+                getDisplay().gameWinner(`${currentPlayer} wins!`);
+                console.table(gameboard);
+                i = 1;
+                j = 2;
+
+            } else if (gameboard[0][0] !== "" && gameboard[0][1] !== "" && gameboard[0][2] !== ""
+                    && gameboard[1][0] !== "" && gameboard[1][1] !== "" && gameboard[1][2] !== ""
+                    && gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
+                console.log("A tie!");
+                resetGame();
+                getDisplay().gameWinner("A tie!");
+                console.table(gameboard);
+                i = 1;
+                j = 2;
+            };
 
 
-        if (gameboard[0][0] !== "" && gameboard[0][0] === gameboard[0][1] && gameboard[0][1] !== "" && gameboard[0][0] === gameboard[0][2] && gameboard[0][2] !== "" ||
-            gameboard[1][0] !== "" && gameboard[1][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[1][0] === gameboard[1][2] && gameboard[1][2] !== "" ||
-            gameboard[2][0] !== "" && gameboard[2][0] === gameboard[2][1] && gameboard[2][1] !== "" && gameboard[2][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
-            gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][0] && gameboard[1][0] !== "" && gameboard[0][0] === gameboard[2][0] && gameboard[2][0] !== "" ||
-            gameboard[0][1] !== "" && gameboard[0][1] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][1] === gameboard[2][1] && gameboard[2][1] !== "" ||
-            gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][2] && gameboard[1][2] !== "" && gameboard[0][2] === gameboard[2][2] && gameboard[2][2] !== "" ||
-            gameboard[0][0] !== "" && gameboard[0][0] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][0] === gameboard[2][2] && gameboard[2][2] !== "" ||
-            gameboard[0][2] !== "" && gameboard[0][2] === gameboard[1][1] && gameboard[1][1] !== "" && gameboard[0][2] === gameboard[2][0] && gameboard[2][0] !== "") {
-            console.log(`${currentPlayer} wins!`);
-            resetGame();
-            console.table(gameboard);
-            i = 1;
-            j = 2;
-
-        } else if (gameboard[0][0] !== "" && gameboard[0][1] !== "" && gameboard[0][2] !== ""
-                && gameboard[1][0] !== "" && gameboard[1][1] !== "" && gameboard[1][2] !== ""
-                && gameboard[2][0] !== "" && gameboard[2][1] !== "" && gameboard[2][2] !== "") {
-            console.log("A tie!");
-            resetGame();
-            console.table(gameboard);
-            i = 1;
-            j = 2;
-        };
-
-
-        if (i < j) {
-            i++;
-            currentPlayer = firstPlayer;
-            console.log(`${firstPlayer}'s turn.`);
-            console.log(i);
-            console.log(j);
-            console.log(currentPlayer);
-        } else if (i === j) {
-            j++;
-            currentPlayer = secondPlayer;
-            console.log(`${secondPlayer}'s turn.`);
-            console.log(i);
-            console.log(j);
-            console.log(currentPlayer);
-        };
-
-        return currentPlayer;
+            if (i < j) {
+                i++;
+                currentPlayer = firstPlayer;
+                console.log(`${firstPlayer}'s turn.`);
+                console.log(i);
+                console.log(j);
+                console.log(currentPlayer);
+            } else if (i === j) {
+                j++;
+                currentPlayer = secondPlayer;
+                console.log(`${secondPlayer}'s turn.`);
+                console.log(i);
+                console.log(j);
+                console.log(currentPlayer);
+            };
 
         };
 
@@ -134,57 +133,78 @@ const displayLogic = {
         const playerTurn = document.querySelector('#player-turn');
         const buttonOne = document.querySelector('#btn-one');
         const buttonTwo = document.querySelector('#btn-two');
+        const winnerMessage = document.querySelector('#winner');
         let firstMove = 1;
         let secondMove = 2;
         let playerMove;
         let playerOne;
         let playerTwo;
+        let k = 0;
 
         return function () {
 
+            k++;
+            console.log(k);
+
             buttonOne.addEventListener('click', () => {
-                playerOne = document.getElementById('player-one').value;
-                createTurns(playerOne);
+            playerOne = document.getElementById('player-one').value;
+            createTurns(playerOne);
                 if (playerOne !== undefined && playerTwo !== undefined) {
-                    playerTurn.textContent = "foo1";
+                    playerTurn.textContent = `${playerOne}'s turn.`;
                 }
             });
     
             buttonTwo.addEventListener('click', () => {
-                playerTwo = document.getElementById('player-two').value;
-                createTurns(playerTwo);
+            playerTwo = document.getElementById('player-two').value;
+            createTurns(playerTwo);
                 if (playerOne !== undefined && playerTwo !== undefined) {
-                    playerTurn.textContent = "foo1";
+                    playerTurn.textContent = `${playerOne}'s turn.`;
                 }
             });
+
+            function display() {
             
-        for (let i = 0; i < gameboard.length; i++) {
-            for (let j = 0; j < gameboard[i].length; j++) {
+                for (let i = 0; i < gameboard.length; i++) {
+                    for (let j = 0; j < gameboard[i].length; j++) {
 
-        let board = document.createElement('div');
-        board.style.border = "1px solid black";
-        board.addEventListener("click", () => {
+                        let board = document.createElement('div');
+                        board.style.border = "1px solid black";
 
-            if (board.textContent === '') {
-                if (firstMove < secondMove) {
-                    playerMove = 'X';
-                    firstMove++;
-                    playerTurn.textContent = "foo2";
-                } else if (firstMove === secondMove) {
-                    playerMove = 'O';
-                    secondMove++;
-                    playerTurn.textContent = "foo1";
+                        board.addEventListener("click", () => {
+
+                            if (board.textContent === '') {
+                                if (firstMove < secondMove) {
+                                    playerMove = 'X';
+                                    firstMove++;
+                                    playerTurn.textContent = `${playerTwo}'s turn.`;
+                                } else if (firstMove === secondMove) {
+                                    playerMove = 'O';
+                                    secondMove++;
+                                    playerTurn.textContent = `${playerOne}'s turn.`;
+                                };
+
+                                createTurns().chooseYourMove(i, j, playerMove);
+                                board.textContent = playerMove;
+
+                            };
+
+                        });
+
+                        container.appendChild(board);
+                    };
+
                 };
-
-            createTurns().chooseYourMove(i, j, playerMove);
-            board.textContent = playerMove;
-            };
-        });
-        container.appendChild(board);
             };
 
-        };
-    }
+            if (k <= 1) { display(); };
+
+            const gameWinner = (hel) => {
+                winnerMessage.textContent = hel;
+            };
+
+            return { gameWinner };
+
+        }
 
     }
 };
