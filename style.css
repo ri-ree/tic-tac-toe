@@ -11,6 +11,9 @@
 
 .title {
     display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 25px;
 }
 
 .grid-container {
@@ -21,6 +24,29 @@
 .grid-container > div:nth-child(1) {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-content: center;
+}
+
+#player-turn {
+    display: grid;
+    justify-content: center;
+    align-content: end;
+}
+
+#game-container {
+    display: grid;
+}
+
+#game-container button {
+    display: grid;
+    height: 20px;
+    width: 60px;
+    justify-self: center;
+    align-self: end;
+    position: relative;
+    left: 120px;
+    top: 20px;
 }
 
 #container {
@@ -29,4 +55,11 @@
     align-self: center;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
+    border: 1px solid black;
+}
+
+#winner {
+    display: grid;
+    justify-content: center;
+    align-content: center;
 }
