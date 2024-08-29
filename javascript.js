@@ -54,6 +54,10 @@ const gameController = {
                 console.log(`${currentPlayer} wins!`);
                 resetGame();
                 getDisplay().gameWinner(`${currentPlayer} wins!`);
+                firstPlayer = undefined;
+                secondPlayer = undefined;
+                /*createTurns().deletePlayers();*/
+                thePlayers.createPlayer().deletePlayers();
                 console.table(gameboard);
                 i = 1;
                 j = 2;
@@ -64,20 +68,24 @@ const gameController = {
                 console.log("A tie!");
                 resetGame();
                 getDisplay().gameWinner("A tie!");
+                firstPlayer = undefined;
+                secondPlayer = undefined;
+                /*createTurns().deletePlayers();*/
+                thePlayers.createPlayer().deletePlayers();
                 console.table(gameboard);
                 i = 1;
                 j = 2;
             };
 
 
-            if (i < j) {
+            if (i < j && firstPlayer !== undefined && secondPlayer !== undefined) {
                 i++;
                 currentPlayer = firstPlayer;
                 console.log(`${firstPlayer}'s turn.`);
                 console.log(i);
                 console.log(j);
                 console.log(currentPlayer);
-            } else if (i === j) {
+            } else if (i === j && firstPlayer !== undefined && secondPlayer !== undefined) {
                 j++;
                 currentPlayer = secondPlayer;
                 console.log(`${secondPlayer}'s turn.`);
@@ -98,34 +106,85 @@ const choosePlayerTurn = gameController.choosePlayer();
 const thePlayers = {
     createPlayer: function() {
 
+            /*return function(name) {*/
+
             let firstPlayer;
             let secondPlayer;
 
-            return function(name) {
+            /*const createThePlayers = (name) => {
 
-            if (firstPlayer === undefined && secondPlayer === undefined) {
-                firstPlayer = name;
-                console.log(firstPlayer);
-                console.log(secondPlayer);
-            } else if (firstPlayer !== undefined && secondPlayer === undefined) {
-                secondPlayer = name;
-                console.log(firstPlayer);
-                console.log(secondPlayer);
-                choosePlayerTurn(firstPlayer, secondPlayer);
+            firstPlayer = name;
+            console.log(firstPlayer);
+            console.log(secondPlayer);
+
+        };
+
+        const createSecondPlayers = (name) => {
+            secondPlayer = name;
+            console.log(firstPlayer);
+            console.log(secondPlayer);
+        };*/
+
+        function createThePlayers() {
+
+            return function (name) {
+
+                if (firstPlayer === undefined && secondPlayer === undefined) {
+                    firstPlayer = name;
+                    console.log(firstPlayer);
+                    console.log(secondPlayer);
+                    return firstPlayer;
+                } else if (firstPlayer !== undefined && secondPlayer === undefined) {
+                    secondPlayer = name;
+                    console.log(firstPlayer);
+                    console.log(secondPlayer);
+                    choosePlayerTurn(firstPlayer, secondPlayer);
+                    return secondPlayer;
+                }
             };
+        }
+
+                /*function firstDefined() {
+                    firstPlayer = name;
+                    console.log(firstPlayer);
+                    console.log(secondPlayer);
+                }
+
+                function secondDefined() {
+                    secondPlayer = name;
+                    console.log(firstPlayer);
+                    console.log(secondPlayer);
+                    choosePlayerTurn(firstPlayer, secondPlayer);
+                }
+
+                if (firstPlayer === "amel" && secondPlayer === undefined) {
+                    firstDefined();
+                    console.log("defined")
+                } else if (firstPlayer !== undefined && secondPlayer === undefined) {
+                    secondDefined();
+                }*/
+
 
             const chooseYourMove = (row, column, move) => {
                 gameboard[row][column] = move;
                 console.table(gameboard);
                 choosePlayerTurn(firstPlayer, secondPlayer);
             };
+
+            const deletePlayers = () => {
+                firstPlayer = undefined;
+                secondPlayer = undefined;
+                console.log(firstPlayer);
+                console.log(secondPlayer);
+            }
         
-            return { chooseYourMove };
-        }
+            return { chooseYourMove, deletePlayers, createThePlayers };
     }
 };
 
-const createTurns = thePlayers.createPlayer();
+/*const createTurns = thePlayers.createPlayer();*/
+
+const createTurns = thePlayers.createPlayer().createThePlayers();
 
 const displayLogic = {
     createBoard: function () {
@@ -134,20 +193,26 @@ const displayLogic = {
         const buttonOne = document.querySelector('#btn-one');
         const buttonTwo = document.querySelector('#btn-two');
         const winnerMessage = document.querySelector('#winner');
+        const restartButton = document.querySelector('#restart-btn');
+        const firstPlayer = document.getElementById('player-one');
+        const secondPlayer = document.getElementById('player-two');
         let firstMove = 1;
         let secondMove = 2;
         let playerMove;
         let playerOne;
         let playerTwo;
-        let k = 0;
+        let gameNumber = 0;
 
         return function () {
 
-            k++;
-            console.log(k);
+            gameNumber++;
+            console.log(gameNumber);
 
             buttonOne.addEventListener('click', () => {
-            playerOne = document.getElementById('player-one').value;
+            playerOne = firstPlayer.value;
+            /*firstPlayer.value = '';*/
+            /*createTurns(playerOne);*/
+            /*thePlayers.createPlayer().createThePlayers(playerOne);*/
             createTurns(playerOne);
                 if (playerOne !== undefined && playerTwo !== undefined) {
                     playerTurn.textContent = `${playerOne}'s turn.`;
@@ -155,7 +220,10 @@ const displayLogic = {
             });
     
             buttonTwo.addEventListener('click', () => {
-            playerTwo = document.getElementById('player-two').value;
+            playerTwo = secondPlayer.value;
+            /*secondPlayer.value = '';*/
+            /*createTurns(playerTwo);*/
+            /*thePlayers.createPlayer().createSecondPlayers(playerTwo);*/
             createTurns(playerTwo);
                 if (playerOne !== undefined && playerTwo !== undefined) {
                     playerTurn.textContent = `${playerOne}'s turn.`;
@@ -183,23 +251,43 @@ const displayLogic = {
                                     playerTurn.textContent = `${playerOne}'s turn.`;
                                 };
 
-                                createTurns().chooseYourMove(i, j, playerMove);
+                                /*createTurns().chooseYourMove(i, j, playerMove);*/
+                                thePlayers.createPlayer().chooseYourMove(i, j, playerMove);
                                 board.textContent = playerMove;
 
                             };
 
                         });
 
+                        restartButton.addEventListener('click', () => {
+                            firstPlayer.value = '';
+                            secondPlayer.value = '';
+                            playerOne = undefined;
+                            playerTwo = undefined;
+                            firstMove = 1;
+                            secondMove = 2;
+                            playerTurn.textContent = '';
+                            winnerMessage.textContent = '';
+                            for (let i = 0; i < gameboard.length; i++) {
+                                for (let j = 0; j < gameboard[i].length; j++) {
+                                    board.textContent = '';
+                                }
+                            }
+            
+                        });
+
                         container.appendChild(board);
+
                     };
 
                 };
             };
 
-            if (k <= 1) { display(); };
+            if (gameNumber <= 1) { display(); };
 
-            const gameWinner = (hel) => {
-                winnerMessage.textContent = hel;
+            const gameWinner = (message) => {
+                winnerMessage.textContent = message;
+                playerTurn.textContent = '';
             };
 
             return { gameWinner };
