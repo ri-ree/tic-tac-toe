@@ -106,10 +106,11 @@ const choosePlayerTurn = gameController.choosePlayer();
 const thePlayers = {
     createPlayer: function() {
 
+        let firstPlayer;
+        let secondPlayer;
+
             /*return function(name) {*/
 
-            let firstPlayer;
-            let secondPlayer;
 
             /*const createThePlayers = (name) => {
 
@@ -127,23 +128,62 @@ const thePlayers = {
 
         function createThePlayers() {
 
-            return function (name) {
+            return function (num, name) {
 
-                if (firstPlayer === undefined && secondPlayer === undefined) {
+                /*if (firstPlayer === undefined || firstPlayer === '' && secondPlayer === undefined || secondPlayer === '') {*/
+                if (num === 1) {
                     firstPlayer = name;
+                    console.log(num);
                     console.log(firstPlayer);
                     console.log(secondPlayer);
-                    return firstPlayer;
-                } else if (firstPlayer !== undefined && secondPlayer === undefined) {
+                    /*return firstPlayer;*/
+                /*} else if (firstPlayer !== undefined || firstPlayer !== '' && secondPlayer === undefined || secondPlayer == '') {*/
+                } else if (num === 2) {
                     secondPlayer = name;
+                    console.log(num);
                     console.log(firstPlayer);
                     console.log(secondPlayer);
-                    choosePlayerTurn(firstPlayer, secondPlayer);
-                    return secondPlayer;
+                    /*choosePlayerTurn(firstPlayer, secondPlayer);*/
+                    /*return secondPlayer;*/
                 }
             };
         }
 
+
+
+
+
+        /*function createPlayersOne() {
+
+
+            return function (name) {
+
+                    firstPlayer = name;
+                    console.log(firstPlayer);
+                    console.log(secondPlayer);
+
+                if (firstPlayer !== undefined || firstPlayer !== '' && secondPlayer === !undefined || secondPlayer !== '') {
+                    choosePlayerTurn(firstPlayer, secondPlayer);
+                }
+
+            };
+        }
+
+
+        function createPlayersTwo() {
+
+            return function (name) {
+
+                secondPlayer = name;
+                console.log(firstPlayer);
+                console.log(secondPlayer);
+
+                if (firstPlayer !== undefined || firstPlayer !== '' && secondPlayer === !undefined || secondPlayer !== '') {
+                    choosePlayerTurn(firstPlayer, secondPlayer);
+                }
+
+            };
+        }*/
                 /*function firstDefined() {
                     firstPlayer = name;
                     console.log(firstPlayer);
@@ -184,6 +224,9 @@ const thePlayers = {
 
 /*const createTurns = thePlayers.createPlayer();*/
 
+/*const createTurnsOne = thePlayers.createPlayer().createPlayersOne();
+const createTurnsTwo = thePlayers.createPlayer().createPlayersTwo();*/
+
 const createTurns = thePlayers.createPlayer().createThePlayers();
 
 const displayLogic = {
@@ -213,9 +256,10 @@ const displayLogic = {
             /*firstPlayer.value = '';*/
             /*createTurns(playerOne);*/
             /*thePlayers.createPlayer().createThePlayers(playerOne);*/
-            createTurns(playerOne);
+            createTurns(1, playerOne);
                 if (playerOne !== undefined && playerTwo !== undefined) {
                     playerTurn.textContent = `${playerOne}'s turn.`;
+                    choosePlayerTurn(playerOne, playerTwo);
                 }
             });
     
@@ -224,9 +268,10 @@ const displayLogic = {
             /*secondPlayer.value = '';*/
             /*createTurns(playerTwo);*/
             /*thePlayers.createPlayer().createSecondPlayers(playerTwo);*/
-            createTurns(playerTwo);
+            createTurns(2, playerTwo);
                 if (playerOne !== undefined && playerTwo !== undefined) {
                     playerTurn.textContent = `${playerOne}'s turn.`;
+                    choosePlayerTurn(playerOne, playerTwo);
                 }
             });
 
@@ -254,6 +299,7 @@ const displayLogic = {
                                 /*createTurns().chooseYourMove(i, j, playerMove);*/
                                 thePlayers.createPlayer().chooseYourMove(i, j, playerMove);
                                 board.textContent = playerMove;
+                                choosePlayerTurn(playerOne, playerTwo);
 
                             };
 
