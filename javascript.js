@@ -285,7 +285,7 @@ const displayLogic = {
 
                         board.addEventListener("click", () => {
 
-                            if (board.textContent === '') {
+                            if (board.textContent === '' && playerOne !== undefined && playerOne !== '' && playerTwo !== undefined && playerTwo !== '' && playerTurn.textContent !== '') {
                                 if (firstMove < secondMove) {
                                     playerMove = 'X';
                                     firstMove++;
