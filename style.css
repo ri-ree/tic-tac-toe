@@ -58,6 +58,12 @@
     border: 1px solid black;
 }
 
+#container > div {
+    display: grid;
+    text-align: center;
+    align-items: center;
+}
+
 #winner {
     display: grid;
     justify-content: center;
